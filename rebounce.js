@@ -1,21 +1,27 @@
 function rebounce(f){
-  var scheduled, context, args;
+  
+  var scheduled;
+  var context;
+  var args;
   
   return function(){
+  
     context = this;
     args = [];
     
-    for(var i = 0; i < arguments.length; ++i) {
+    for ( var i = 0; i < arguments.length; ++i ){
       args[i] = arguments[i];
     }
     
-    !!scheduled && window.cancelAnimationFrame( scheduled );
+    if ( scheduled ){
+      window.cancelAnimationFrame( scheduled );
+    }
     
     scheduled = window.requestAnimationFrame( function(){
       f.apply( context, args );
       scheduled = null;
     });
-    
+  
   }
   
 }
